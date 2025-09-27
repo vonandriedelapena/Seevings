@@ -13,11 +13,10 @@ Ensure you have the following installed on your system:
 ---
 
 ## 1. Clone the Repository
-If you haven't already, clone the project from GitHub and navigate into the root directory:
+If you haven't already, clone the project from GitHub and open the cloned directory in PyCharm:
 
 ```bash
 git clone https://github.com/3WokRide/Seevings.git
-cd Seevings
 ```
 
 ---
@@ -26,7 +25,7 @@ cd Seevings
 We use a virtual environment named `.venv` to isolate all project dependencies.
 
 ### A. Create Environment
-Run this command from the project root:
+Open a PyCharm terminal. Run this command from the project root:
 
 ```bash
 python -m venv .venv
