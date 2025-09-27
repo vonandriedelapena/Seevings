@@ -1,0 +1,20 @@
+# 1. Virtual Environment & Dependencies
+.venv/
+venv/
+env/
+
+# 2. Python-Specific Files
+__pycache__/
+*.pyc
+*.pyo
+
+# 3. Django-Specific Files
+media/
+staticfiles/
+
+# 4. Security & Configuration
+.env
+
+# 5. PyCharm/IDE-Specific Files (Put these in the same file!)
+.idea/
+*.iml
