@@ -16,7 +16,7 @@ Ensure you have the following installed on your system:
 If you haven't already, clone the project from GitHub and open the cloned directory in PyCharm:
 
 ```bash
-git clone https://github.com/3WokRide/Seevings.git
+git clone https://github.com/vonandriedelapena/Seevings.git
 ```
 
 ---
