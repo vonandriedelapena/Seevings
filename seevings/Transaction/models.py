@@ -1,6 +1,6 @@
 from django.db import models
-
 from Account.models import Account
+from GoalSetter.models import Goal
 
 
 class Transaction(models.Model):
@@ -36,4 +36,5 @@ class Income(Transaction):
 
 
 class Saving(Transaction):
-    goalId = models.AutoField(primary_key=True)  # TODO: CHANGE THIS TO FOREIGN KEY FROM GOAL ENTITY
+    goalId = models.ForeignKey(Goal, on_delete=models.CASCADE)
+
