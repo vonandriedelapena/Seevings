@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Account',
-    'Transaction',
     'Budget',
+    'GoalSetter',
+    'SavingSuggestion',
+    'Transaction',
 ]
 
 MIDDLEWARE = [

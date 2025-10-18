@@ -15,5 +15,5 @@ class Account(models.Model):
     username = models.CharField(max_length=120, null=False)
     balance = models.FloatField(default=0, null=False)
     createdAt = models.CharField(max_length=120, null=False)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.RESTRICT)
 
