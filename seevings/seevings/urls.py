@@ -19,6 +19,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Account.urls', namespace='Account'))
-    path('', include('GoalSetter.urls')),
+    path('accounts/', include(('Account.urls', 'Account'), namespace='Account')),
+    path('transactions/', include(('Transaction.urls', 'Transaction'), namespace='Transaction')),
+    path('goals/', include(('GoalSetter.urls', 'GoalSetter'), namespace='GoalSetter')),
+    path('suggestions/', include(('SavingSuggestion.urls', 'SavingSuggestion'), namespace='SavingSuggestion')),
+    path('budgets/', include(('Budget.urls', 'Budget'), namespace='Budget')),
 ]
