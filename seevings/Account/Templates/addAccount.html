@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Account</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2/dist/solid/index.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2/dist/outline/index.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="flex flex-col min-h-screen">
+
+        <header class="bg-white border-b border-gray-200">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-900 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.5h-1.5a.75.75 0 0 0 0 1.5h1.5v1.5a.75.75 0 0 0 1.5 0v-1.5h1.5a.75.75 0 0 0 0-1.5h-1.5v-8.5Z" />
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm0 1.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Accounts</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.5 5.5 0 0 0-5.5 5.5A.75.75 0 0 0 5.25 18h9.5a.75.75 0 0 0 .75-.75A5.5 5.5 0 0 0 10 12Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                </div>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Profile Picture" class="w-full h-full object-cover">
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Add New Account</h1>
+                <p class="mt-1 text-lg text-gray-600">Effortlessly create and manage your financial accounts.</p>
+            </div>
+
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-gray-200">
+
+                <h2 class="text-2xl font-semibold text-center text-gray-800 mb-2">Create New Financial Account</h2>
+                <p class="text-sm text-gray-600 text-center mb-6">Enter the details below to add a new account to your profile.</p>
+
+                <form class="space-y-5">
+                    <div>
+                        <label for="account-name" class="block text-sm font-medium text-gray-700 mb-1">Account Name</label>
+                        <input type="text" id="account-name" name="account-name" placeholder="e.g., My Personal Checking"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+
+                    <div>
+                        <label for="account-type" class="block text-sm font-medium text-gray-700 mb-1">Account Type</LAbel>
+                        <select id="account-type" name="account-type"
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white">
+                            <option>Checking</option>
+                            <option>Savings</option>
+                            <option>Credit Card</option>
+                            <option>Investment</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="initial-balance" class="block text-sm font-medium text-gray-700 mb-1">Initial Balance</label>
+                        <input type="text" id="initial-balance" name="initial-balance" placeholder="0.00"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+
+                    <div class="flex justify-end gap-3 pt-4">
+                        <a href="{% url 'Account:account' %}"
+                                class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                                class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Save Account
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer class="border-t border-gray-200 mt-auto bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 Account. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-900">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

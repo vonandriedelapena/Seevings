@@ -13,6 +13,9 @@ def login(request):
 def view_account(request):
     return render(request, 'viewAccount.html')
 
+def view_detailed(request):
+    return render(request, 'viewDetailed.html')
+
 def add_account(request):
     return render(request, 'addAccount.html')
 
