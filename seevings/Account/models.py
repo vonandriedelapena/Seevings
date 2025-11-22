@@ -19,3 +19,5 @@ class Account(models.Model):
     createdAt = models.CharField(max_length=120, null=False)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
 
+    def __str__(self):
+        return f"{self.createdAt} - {self.username}"

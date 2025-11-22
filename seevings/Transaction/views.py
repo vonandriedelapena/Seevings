@@ -218,6 +218,6 @@ def get_transaction_details(request, pk):
     elif transaction.type == 'S':
         data['goal'] = subclass_instance.goalId.pk
     elif transaction.type == 'T':
-        data['receiver'] = subclass_instance.receiverId.pk  # Receiving Account FK
+        data['receiver'] = subclass_instance.receiverId  # Receiving Account FK
 
     return JsonResponse(data)
