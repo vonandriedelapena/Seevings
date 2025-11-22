@@ -13,17 +13,32 @@ class Transaction(models.Model):
     type = models.CharField(max_length=1, choices=type_trans, default='E')
 
     def __str__(self):
-        return self.type_trans + ': $' + self.amount + ' (' + self.notes + ': ' + self.timestamp + ')'
+        return f"{self.get_type_display()}: ${self.amount} ({self.notes} at {self.timestamp})"
+
+    def get_subclass_instance(self):
+        if self.type == 'T':
+            return Transfer.objects.get(pk=self.pk)
+        elif self.type == 'E':
+            return Expense.objects.get(pk=self.pk)
+        elif self.type == 'I':
+            return Income.objects.get(pk=self.pk)
+        else:
+            return Saving.objects.get(pk=self.pk)
 
 
 class Transfer(Transaction):
-    receiverId = models.ForeignKey(Account, on_delete=models.RESTRICT)
-
+    receiverId = models.CharField(max_length=64, null=False)
+    # receiverId = models.ForeignKey(Account, on_delete=models.RESTRICT)
+#   Removed FK because this is only a tracker app
+#   Different users cannot interact
 
 class Category(models.Model):
     categoryId = models.AutoField(primary_key=True)
     name = models.CharField(max_length=120, null=False)
     description = models.CharField(max_length=120, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Expense(Transaction):
