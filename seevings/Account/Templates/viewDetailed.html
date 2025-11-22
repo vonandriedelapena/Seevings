@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - Main Checking</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2/dist/solid/index.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2/dist/outline/index.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="flex flex-col min-h-screen">
+
+        <header class="bg-white border-b border-gray-200">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-900 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.5h-1.5a.75.75 0 0 0 0 1.5h1.5v1.5a.75.75 0 0 0 1.5 0v-1.5h1.5a.75.75 0 0 0 0-1.5h-1.5v-8.5Z" />
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm0 1.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Accounts</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.5 5.5 0 0 0-5.5 5.5A.75.75 0 0 0 5.25 18h9.5a.75.75 0 0 0 .75-.75A5.5 5.5 0 0 0 10 12Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                </div>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Profile Picture" class="w-full h-full object-cover">
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+
+            <a href="{% url 'Account:account' %}" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path fill-rule="evenodd" d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z" clip-rule="evenodd" />
+                </svg>
+                Back to Accounts
+            </a>
+
+            <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl border border-gray-200 mb-8">
+                <div class="mb-4">
+                    <h1 class="text-3xl font-bold text-gray-900">Main Checking</h1>
+                    <p class="text-lg text-gray-600">Checking Account</p>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-5xl font-bold text-blue-600">$12,345.67</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 mb-1">Account Name</p>
+                        <p class="text-lg font-semibold text-gray-800">Main Checking</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 mb-1">Account Type</p>
+                        <p class="text-lg font-semibold text-gray-800">Checking</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <a href="{% url 'Account:updateAccount' %}" class="inline-flex items-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path d="M2.695 14.763l-1.262 3.154a.5.5 0 0 0 .65.65l3.155-1.262a1 1 0 0 0 .46-.295l10.824-10.824a.5.5 0 0 0 0-.707l-2.122-2.122a.5.5 0 0 0-.707 0L2.99 14.305a1 1 0 0 0-.295.458Z" />
+                        </svg>
+                        Update Account
+                    </a>
+                    <a href="{% url 'Account:closeAccount' %}" class="inline-flex items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75V4.5h8V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 0a4.25 4.25 0 0 0-4.25 4.25V4.5h8.5V4.25A4.25 4.25 0 0 0 10 0ZM4.5 5.25V17A2.75 2.75 0 0 0 7.25 19.75h5.5A2.75 2.75 0 0 0 15.5 17V5.25H4.5Z" clip-rule="evenodd" />
+                        </svg>
+                        Delete Account
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl border border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">Transaction History</h2>
+
+                <div class="flow-root">
+                    <ul role="list" class="-mb-4 -mt-4 divide-y divide-gray-200">
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-500 uppercase">Date</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-500 uppercase">Description</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-gray-500 uppercase">Amount</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-700">2023-10-26</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Grocery Store</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-red-600">-$75.20</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-700">2023-10-25</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Monthly Salary</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-green-600">+$3,500.00</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-700">2023-10-24</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Online Subscription</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-red-600">-$12.99</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-700">2023-10-23</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Coffee Shop</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-red-600">-$5.50</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-700">2023-10-22</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Investment Deposit</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-red-600">-$1,000.00</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-gray-700">2023-10-21</p>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Reimbursement</p>
+                                </div>
+                                <div class="flex-none w-28 text-right">
+                                    <p class="text-sm font-medium text-green-600">+$150.00</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        </ul>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="border-t border-gray-200 mt-auto bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 Account. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-900">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

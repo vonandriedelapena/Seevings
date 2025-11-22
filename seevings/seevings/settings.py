@@ -61,7 +61,7 @@ ROOT_URLCONF = 'seevings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'Account/Templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,6 +133,7 @@ STATICFILES_DIRS = []
 
 # For production: defines where to collect static files
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
