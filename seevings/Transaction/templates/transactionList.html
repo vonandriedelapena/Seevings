@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seevings</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'vendors/css/all.min.css' %}">
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+
+    <style>
+        body, .jetbrains-font {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+        .seevings-title, .jersey-font {
+            font-family: 'Jersey 10', sans-serif;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2308DB80'%3e%3cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.5em;
+
+            padding-right: 2.5rem;
+        }
+
+        .hide-default-icon::-webkit-calendar-picker-indicator {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+    </style>
+</head>
+<body class="bg-custom-dark-bg min-h-screen text-white">
+
+    <div class="flex h-screen">
+
+        <div class="w-64 bg-custom-sidebar-bg p-6 flex flex-col justify-between flex-shrink-0 ">
+            <div>
+                <div class="w-50 h-50 rounded-full overflow-hidden border-2 border-custom-green p-1 mb-4">
+                    <div class="w-full h-full rounded-full bg-gray-600">
+                         <img src="{% static 'img/reyna_profile.png' %}" alt="Reyna Profile" class="object-cover w-full h-full">
+                    </div>
+                </div>
+                <div class="w-full flex items-center justify-center space-x-1 mx-auto mb-8">
+                    <h2 class="text-5xl font-bold jersey-font">Hi,</h2>
+                    <h2 class="text-5xl font-bold text-custom-green jersey-font">Reyna</h2>
+                </div>
+
+                <nav class="space-y-4 text-gray-400">
+                    <a href="#" class="hover:bg-green-900 hover:text-white transition duration-150 flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-user"></i>
+                        <span class="jetbrains-font">Profile</span>
+                    </a>
+                    <a href="#" class="hover:bg-green-900 hover:text-white transition duration-150 flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-wallet"></i>
+                        <span class="jetbrains-font">Accounts</span>
+                    </a>
+                    <a href="#" class="hover:bg-green-900 transition duration-150 flex items-center space-x-3 p-3 rounded-lg bg-custom-green/10 text-custom-green font-bold border-l-4 border-custom-green">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span class="jetbrains-font">Transactions</span>
+                    </a>
+                    <a href="#" class="hover:bg-green-900 hover:text-white transition duration-150 flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-bullseye"></i>
+                        <span class="jetbrains-font">Goals</span>
+                    </a>
+                    <a href="#" class="hover:bg-green-900 hover:text-white transition duration-150 flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-lightbulb"></i>
+                        <span class="jetbrains-font">Suggestions</span>
+                    </a>
+                </nav>
+            </div>
+
+            <a href="#" class="hover:bg-green-900 hover:text-white transition duration-150 flex items-center space-x-3 p-3 text-gray-400 rounded-lg">
+                <i class="fas fa-cog"></i>
+                <span class="jetbrains-font">Settings</span>
+            </a>
+        </div>
+
+        <div class="flex-1 p-8 overflow-y-auto">
+
+            <div class="flex justify-between items-center mb-10">
+                <button id="new-transaction-btn" class="flex items-center space-x-2 px-6 py-2 rounded-lg border border-custom-green text-custom-green hover:bg-custom-green hover:text-custom-dark-bg font-bold text-2xl shadow-lg transition duration-150 jersey-font">
+                    <i class="fas fa-plus text-xl"></i>
+                    <span>NEW TRANSACTION</span>
+                </button>
+                <h1 class="text-7xl seevings-title text-custom-green">SEEVING$</h1>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 mb-10">
+                <div class="bg-custom-sidebar-bg p-6 rounded-xl">
+                    <h3 class="text-3xl ml-4 mb-4 text-white jersey-font">Expense Categories</h3>
+                    <div class="mx-auto" style="max-width: 160px;">
+                        <canvas id="expenseDoughnutChart"></canvas>
+                    </div>
+                    <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm justify-center mt-7">
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-custom-green"></span><span>Rent</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-custom-pink-accent"></span><span>Food</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-500"></span><span>Transport</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-custom-yellow-accent"></span><span>Others</span></div>
+                    </div>
+                </div>
+                <div class="bg-custom-sidebar-bg p-6 rounded-xl justify-center">
+                    <h3 class="text-3xl ml-4 mb-4 text-white jersey-font">Monthly Savings</h3>
+                    <canvas id="monthlySavingsChart" style="height: 175px; width: 100%;"></canvas>
+                    <p class="text-m text-gray-400 text-center mt-3">You saved <strong class="text-custom-green">$700.00</strong> more than last month.</p>
+                </div>
+            </div>
+
+            <div class="bg-white/5 p-6 rounded-xl">
+                <h3 class="text-4xl mb-6 text-custom-green jersey-font">Transaction History</h3>
+
+                <div class="space-y-3">
+                    <div class="bg-white/5 p-6 rounded-xl">
+                        <div class="space-y-3">
+
+                            <div class="transaction-row flex items-center justify-between py-2 border-b border-gray-700/50 hover:bg-white/10 px-2 rounded-md transition duration-100"
+                                 data-id="1" data-type="I" data-amount="1000.00">
+                                <div class="flex items-center space-x-4 w-1/4">
+                                    <span class="text-custom-green text-lg pb-1"><i class="fas fa-arrow-up"></i></span>
+                                    <span class="text-custom-green font-bold text-lg pb-1">+ $1000.00</span>
+                                </div>
+                                <span class="w-1/4 text-gray-300">Income</span>
+                                <span class="w-1/4 text-gray-500">Oct 2nd half</span>
+                                <span class="w-1/6 text-gray-500 text-right">11/03/25</span>
+                                <div class="flex space-x-2 ml-4">
+                                    <button class="text-custom-pink-accent cursor-pointer delete-transaction-btn"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="text-custom-green cursor-pointer edit-transaction-btn"><i class="fas fa-pen-to-square"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="transaction-row flex items-center justify-between py-2 border-b border-gray-700/50 hover:bg-white/10 px-2 rounded-md transition duration-100"
+                                 data-id="2" data-type="I" data-amount="500.00">
+                                <div class="flex items-center space-x-4 w-1/4">
+                                    <span class="text-custom-green text-lg pb-1"><i class="fas fa-arrow-up"></i></span>
+                                    <span class="text-custom-green font-bold text-lg pb-1">+ $500.00</span>
+                                </div>
+                                <span class="w-1/4 text-gray-300">Income</span>
+                                <span class="w-1/4 text-gray-500">Allowance</span>
+                                <span class="w-1/6 text-gray-500 text-right">11/01/25</span>
+                                <div class="flex space-x-2 ml-4">
+                                    <button class="text-custom-pink-accent cursor-pointer delete-transaction-btn"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="text-custom-green cursor-pointer edit-transaction-btn"><i class="fas fa-pen-to-square"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="transaction-row flex items-center justify-between py-2 border-b border-gray-700/50 hover:bg-white/10 px-2 rounded-md transition duration-100"
+                                 data-id="3" data-type="E" data-amount="250.00">
+                                <div class="flex items-center space-x-4 w-1/4">
+                                    <span class="text-custom-pink-accent text-lg pb-1"><i class="fas fa-arrow-down"></i></span>
+                                    <span class="text-custom-pink-accent font-bold text-lg pb-1">- $250.00</span>
+                                </div>
+                                <span class="w-1/4 text-gray-300">Expense</span>
+                                <span class="w-1/4 text-gray-500">Food</span>
+                                <span class="w-1/6 text-gray-500 text-right">10/31/25</span>
+                                <div class="flex space-x-2 ml-4">
+                                    <button class="text-custom-pink-accent cursor-pointer delete-transaction-btn"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="text-custom-green cursor-pointer edit-transaction-btn"><i class="fas fa-pen-to-square"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="transaction-row flex items-center justify-between py-2 border-b border-gray-700/50 hover:bg-white/10 px-2 rounded-md transition duration-100"
+                                 data-id="4" data-type="S" data-amount="1000.00">
+                                <div class="flex items-center space-x-4 w-1/4">
+                                    <span class="text-custom-pink-accent text-lg pb-1"><i class="fas fa-arrow-down"></i></span>
+                                    <span class="text-custom-pink-accent font-bold text-lg pb-1">- $1000.00</span>
+                                </div>
+                                <span class="w-1/4 text-gray-300">Saving</span>
+                                <span class="w-1/4 text-gray-500">for Tablet</span>
+                                <span class="w-1/6 text-gray-500 text-right">10/30/25</span>
+                                <div class="flex space-x-2 ml-4">
+                                    <button class="text-custom-pink-accent cursor-pointer delete-transaction-btn"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="text-custom-green cursor-pointer edit-transaction-btn"><i class="fas fa-pen-to-square"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="transaction-row flex items-center justify-between py-2 hover:bg-white/10 px-2 rounded-md transition duration-100"
+                                 data-id="5" data-type="T" data-amount="100.00">
+                                <div class="flex items-center space-x-4 w-1/4">
+                                    <span class="text-custom-pink-accent text-lg pb-1"><i class="fas fa-arrow-down"></i></span>
+                                    <span class="text-custom-pink-accent font-bold text-lg pb-1">- $100.00</span>
+                                </div>
+                                <span class="w-1/4 text-gray-300">Transfer</span>
+                                <span class="w-1/4 text-gray-500">to Jett</span>
+                                <span class="w-1/6 text-gray-500 text-right">10/15/25</span>
+                                <div class="flex space-x-2 ml-4">
+                                    <button class="text-custom-pink-accent cursor-pointer delete-transaction-btn"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="text-custom-green cursor-pointer edit-transaction-btn"><i class="fas fa-pen-to-square"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/70 hidden z-40"></div>
+
+    <div id="transaction-modal" class="hidden fixed top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 z-50 bg-custom-sidebar-bg p-8 rounded-xl w-full max-w-3xl shadow-2xl border border-white/10">
+        <h2 id="modal-title" class="text-5xl font-bold text-custom-green mb-6 text-center jersey-font">NEW TRANSACTION</h2>
+        <form id="transaction-form">
+            <input type="hidden" id="transaction_id" name="transaction_id">
+
+            <div class="flex items-center justify-center mb-4">
+                <label for="amount" class="w-1/4 text-gray-300">Amount</label>
+                <input type="number" id="amount" name="amount" required
+                       class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+            </div>
+
+            <div class="flex items-center justify-center mb-4">
+                <label for="account" class="w-1/4 text-gray-300">Account</label>
+                <select id="account" name="account" required
+                        class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+                    <option value="1">GoTyme</option>
+                    <option value="2">Cash</option>
+                    <option value="3">GCash</option>
+                </select>
+            </div>
+
+            <div class="flex items-center justify-center mb-4">
+                <label for="date" class="w-1/4 text-gray-300">Date</label>
+                <div class="w-2/3 relative">
+                    <input type="date" id="date" name="date" required
+                           class="hide-default-icon w-full p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green pr-10 text-white">
+                    <i class="fas fa-calendar-alt text-custom-green absolute right-3 top-1/3 -translate-y-1/2 pointer-events-none"></i>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center mb-4">
+                <label for="notes" class="w-1/4 text-gray-300">Notes</label>
+                <input type="text" id="notes" name="notes"
+                       class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+            </div>
+
+            <div class="flex items-center justify-center mb-4">
+                <label for="type" class="w-1/4 text-gray-300">Type</label>
+                <select id="type" name="type" required
+                        class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+                    <option value="I">Income</option>
+                    <option value="E">Expense</option>
+                    <option value="S">Saving</option>
+                    <option value="T">Transfer</option>
+                </select>
+            </div>
+
+            <div id="dynamic-field-container">
+                <div id="field-I" class="dynamic-field justify-center flex items-center mb-4">
+                    <label for="source" class="w-1/4 justify-center text-gray-300">Source</label>
+                    <input type="text" id="source" name="source"
+                           class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+                </div>
+
+                <div id="field-E" class="dynamic-field justify-center hidden flex items-center mb-4">
+                    <label for="category" class="w-1/4 justify-center text-gray-300">Category</label>
+                    <select id="category" name="category"
+                            class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+                        <option value="1">Food</option>
+                        <option value="2">Rent</option>
+                        <option value="3">Transport</option>
+                    </select>
+                </div>
+
+                <div id="field-S" class="dynamic-field justify-center hidden flex items-center mb-4">
+                    <label for="goal" class="w-1/4 justify-center text-gray-300">Goal</label>
+                    <select id="goal" name="goal"
+                            class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+                        <option value="1">for Tablet</option>
+                        <option value="2">New PC</option>
+                    </select>
+                </div>
+
+                <div id="field-T" class="dynamic-field justify-center hidden flex items-center mb-4">
+                    <label for="receiver" class="w-1/4 justify-center text-gray-300">Receiver</label>
+                    <input type="text" id="receiver" name="receiver"
+                           class="w-2/3 p-2 bg-custom-dark-bg border border-gray-700 rounded-md focus:ring-custom-green focus:border-custom-green text-white">
+                </div>
+            </div>
+
+            <div class="w-full flex justify-center space-x-4 mt-8">
+                <button type="button" id="cancel-transaction-modal" class="w-80 px-6 py-3 rounded-xl border border-white text-white text-xl font-bold hover:bg-white hover:text-custom-dark-bg transition duration-150 jersey-font">
+                    CANCEL
+                </button>
+                <button type="submit" class="w-80 px-6 py-3 rounded-xl bg-custom-green text-custom-dark-bg text-xl font-bold hover:bg-green-400 transition duration-150 jersey-font">
+                    SAVE
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="delete-modal" class="hidden fixed top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 z-50 bg-custom-dark-bg p-8 rounded-xl w-full max-w-3xl shadow-2xl text-center border border-white/10">
+        <h2 class="text-5xl font-bold text-custom-pink-accent mb-4 jersey-font">CONFIRM DELETE TRANSACTION</h2>
+        <p class="text-white text-lg">Are you sure you want to delete this transaction?</p>
+        <p class="text-lg text-custom-green font-bold mb-8" id="delete-transaction-summary">
+            $500.00 - Income
+        </p>
+
+        <input type="hidden" id="delete-transaction-id">
+
+        <div class="flex justify-center space-x-4">
+            <button type="button" id="cancel-delete-modal" class="w-64 px-6 py-3 rounded-xl border border-white text-white text-xl font-bold hover:bg-white hover:text-custom-dark-bg transition duration-150 jersey-font">
+                CANCEL
+            </button>
+            <button type="button" id="confirm-delete" class="w-64 px-6 py-3 rounded-xl bg-custom-pink-accent text-white text-xl font-bold hover:bg-red-500 transition duration-150 jersey-font">
+                DELETE
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        const ctx = document.getElementById('monthlySavingsChart').getContext('2d');
+
+        const customGreen = '#08DB80';
+
+        const createGradient = (chart) => {
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return null;
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, 'rgba(8, 219, 128, 0.1)');
+            gradient.addColorStop(1, 'rgba(8, 219, 128, 0.8)');
+            return gradient;
+        };
+
+        let gradientFill;
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+                datasets: [{
+                    label: 'Monthly Savings',
+                    data: [50, 80, 45, 90, 60],
+
+                    borderColor: customGreen,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    tension: 0.4,
+
+                    backgroundColor: (context) => {
+                        if (!gradientFill) {
+                            gradientFill = createGradient(context.chart);
+                        }
+                        return gradientFill;
+                    },
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: true,
+                    },
+                    y: {
+                        display: false,
+                        beginAtZero: true,
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        const doughnutCtx = document.getElementById('expenseDoughnutChart').getContext('2d');
+
+        const categoryColors = [
+            '#08DB80',    // custom-green (Rent)
+            '#FF597D',    // custom-pink-accent (Food)
+            '#4C95F2',    // Blue-500 (Transport)
+            '#FFD57C',    // custom-yellow-accent (Others)
+        ];
+
+        new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Rent', 'Food', 'Transport', 'Others'],
+                datasets: [{
+                    data: [25, 30, 15, 30],
+                    backgroundColor: categoryColors,
+                    borderColor: '#26292E',
+                    borderWidth: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 0,
+                        bottom: 0,
+                    }
+                },
+                // Defines the size of the hole
+                cutout: '50%',
+            }
+        });
+    </script>
+    <script>
+        const transactionModal = document.getElementById('transaction-modal');
+        const deleteModal = document.getElementById('delete-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+        const newTransactionBtn = document.getElementById('new-transaction-btn');
+        const typeSelect = document.getElementById('type');
+        const dynamicFields = document.querySelectorAll('.dynamic-field');
+        const transactionForm = document.getElementById('transaction-form');
+        const modalTitle = document.getElementById('modal-title');
+        const confirmDeleteBtn = document.getElementById('confirm-delete');
+        const deleteTransactionIdInput = document.getElementById('delete-transaction-id');
+
+        function handleDeleteClick(e) {
+            const row = e.currentTarget.closest('.transaction-row');
+            const amount = row.dataset.amount;
+            const typeCode = row.dataset.type;
+            const transactionId = row.dataset.id;
+
+            let typeName = { 'I': 'Income', 'E': 'Expense', 'S': 'Saving', 'T': 'Transfer' }[typeCode] || 'Unknown';
+
+            document.getElementById('delete-transaction-summary').textContent = `$${amount} - ${typeName}`;
+            document.getElementById('delete-transaction-id').value = transactionId;
+
+            openModal(deleteModal);
+        }
+
+        function handleEditClick(e) {
+            const row = e.currentTarget.closest('.transaction-row');
+            const transactionId = row.dataset.id;
+
+            const url = `/transaction/${transactionId}/details/`;
+            console.log(`Fetching details for ID ${transactionId} from ${url}`);
+
+            modalTitle.textContent = 'EDIT TRANSACTION';
+            document.getElementById('transaction_id').value = transactionId;
+
+            const serverDataMock = {
+                id: transactionId,
+                amount: row.dataset.amount,
+                type: row.dataset.type, // 'I', 'E', 'S', or 'T'
+                notes: 'Mock note',
+                date: '10/31/2025', // Mock Date: MM/DD/YYYY format
+                accountId: "1", // Mock Account ID
+
+                // Subclass fields (IDs needed for dropdowns)
+                category: "2", // For 'E', Category ID 2
+                goal: "1",     // For 'S', Goal ID 1
+                receiver: "2", // For 'T', Receiver Account ID 2
+                source: 'Mock Salary Source', // For 'I', Source text
+            };
+
+            // Populate common fields
+            document.getElementById('amount').value = serverDataMock.amount;
+            document.getElementById('type').value = serverDataMock.type;
+            // document.getElementById('account').value = serverDataMock.accountId; // Assuming this exists
+            document.getElementById('date').value = serverDataMock.date;
+            document.getElementById('notes').value = serverDataMock.notes;
+
+            // Set type and show the correct dynamic field container
+            updateDynamicField(serverDataMock.type);
+
+            // Populate dynamic fields using the returned IDs (this correctly selects dropdown options)
+            if (serverDataMock.type === 'E') {
+                document.getElementById('category').value = serverDataMock.category;
+            } else if (serverDataMock.type === 'S') {
+                document.getElementById('goal').value = serverDataMock.goal;
+            } else if (serverDataMock.type === 'T') {
+                // document.getElementById('receiver').value = serverDataMock.receiver; // Assuming this is a dropdown
+            } else if (serverDataMock.type === 'I') {
+                document.getElementById('source').value = serverDataMock.source; // Text input
+            }
+
+            openModal(transactionModal);
+        }
+
+
+        // Transaction Form Submission (Handles Create/Edit)
+        // Function to update the specific transaction row on the UI after a successful edit
+        function updateTransactionRowUI(data) {
+            const row = document.querySelector(`.transaction-row[data-id="${data.transaction_id}"]`);
+            if (!row) return;
+
+            const amountDisplay = (data.amount * (data.type === 'I' ? 1 : 1)).toFixed(2);
+            const colorClass = data.type === 'I' ? 'text-custom-green' : 'text-custom-pink-accent';
+            const iconClass = data.type === 'I' ? 'fa-arrow-up' : 'fa-arrow-down';
+            const typeName = { 'I': 'Income', 'E': 'Expense', 'S': 'Saving', 'T': 'Transfer' }[data.type] || 'Unknown';
+
+            // Determine the Description/Notes field based on type (MOCKUP)
+            let description;
+            if (data.type === 'I') {
+                description = data.source || 'Income';
+            } else if (data.type === 'E') {
+                // Mapping category ID back to text
+                const categoryMap = { "1": "Food", "2": "Rent", "3": "Transport" };
+                description = categoryMap[data.category] || 'Expense';
+            } else if (data.type === 'S') {
+                const goalMap = { "1": "for Tablet", "2": "New PC" };
+                description = goalMap[data.goal] || 'Saving';
+            } else if (data.type === 'T') {
+                description = data.receiver || 'Transfer';
+            } else {
+                description = data.notes; // Fallback
+            }
+
+            // Update the data attributes
+            row.dataset.type = data.type;
+            row.dataset.amount = data.amount;
+
+            // Update Amount/Icon Column
+            const amountCol = row.children[0];
+            amountCol.children[0].className = `text-lg pb-1 ${colorClass}`;
+            amountCol.children[0].children[0].className = `fas ${iconClass}`;
+            amountCol.children[1].className = `font-bold text-lg pb-1 ${colorClass}`;
+            amountCol.children[1].textContent = `${data.type === 'I' ? '+' : '-'} $${amountDisplay}`;
+
+            // Update Type Column
+            row.children[1].textContent = typeName;
+
+            // Update Description/Notes Column
+            row.children[2].textContent = description;
+
+            // Update Date Column (Assuming your form returns a date field)
+            if (data.date) {
+                // Format date from YYYY-MM-DD to MM/DD/YY (Django will usually handle this)
+                const [year, month, day] = data.date.split('-');
+                row.children[3].textContent = `${day}/${month}/${year.slice(2)}`;
+            }
+        }
+
+        function createNewTransactionRow(data) {
+            // Clone the first existing row to use as a template
+            const templateRow = document.querySelector('.transaction-row');
+            if (!templateRow) {
+                console.error("Cannot create new row: No existing transaction row found to clone.");
+                return null;
+            }
+
+            const newRow = templateRow.cloneNode(true);
+            const container = templateRow.parentNode;
+
+            newRow.classList.remove('border-b'); // Remove border from last one if present
+
+            // Ensure the last row now has a border if it was removed when creating the new row.
+            const lastRow = container.querySelector('.transaction-row:last-child');
+            if (lastRow) {
+                 lastRow.classList.add('border-b'); // Ensure all rows except the new last one have a border
+            }
+
+            // Populate content using the shared logic
+            updateTransactionRowUI(data);
+
+            // Add event listeners to the new row's buttons
+            newRow.querySelector('.delete-transaction-btn').addEventListener('click', handleDeleteClick);
+            newRow.querySelector('.edit-transaction-btn').addEventListener('click', handleEditClick);
+
+            // Prepend the new row to the list (top of the list)
+            container.prepend(newRow);
+        }
+
+        // TRANSACTION FORM SUBMISSION (CREATE/EDIT)
+        transactionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const transactionId = document.getElementById('transaction_id').value;
+            const isEditing = !!transactionId;
+
+            const formData = new FormData(transactionForm);
+            const data = Object.fromEntries(formData.entries());
+
+            const url = '/transaction/save/';
+
+            if (isEditing) {
+                data['transaction_id'] = transactionId;
+            }
+
+            data['category'] = data.category;
+            data['goal'] = data.goal;
+            data['receiver'] = data.receiver;
+            data['source'] = data.source;
+
+            console.log(`Submitting ${isEditing ? 'UPDATE' : 'CREATE'} to ${url}`, data);
+
+            const mockResponseData = {
+                success: true,
+                message: `${isEditing ? 'Updated' : 'Created'} successfully.`,
+                transaction_id: transactionId || Date.now(),
+                ...data
+            };
+
+            if (isEditing) {
+                // If Editing: Update the specific row's UI
+                updateTransactionRowUI(mockResponseData);
+            }
+
+            closeAllModals();
+        });
+
+
+        // Delete Confirmation Button
+        confirmDeleteBtn.addEventListener('click', () => {
+            const transactionId = deleteTransactionIdInput.value;
+
+            const url = `/transaction/${transactionId}/delete/`;
+
+            console.log(`Submitting DELETE for ID ${transactionId} to ${url}`);
+
+            closeAllModals();
+            document.querySelector(`.transaction-row[data-id="${transactionId}"]`).remove();
+        });
+
+
+        // Django CSRF Helper (Required for POST/DELETE requests)
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // UTILITY FUNCTIONS
+
+        function openModal(modal) {
+            modal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+        }
+
+        function closeAllModals() {
+            transactionModal.classList.add('hidden');
+            deleteModal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        }
+
+        function updateDynamicField(selectedType) {
+            // Hide all dynamic fields
+            dynamicFields.forEach(field => field.classList.add('hidden'));
+
+            // Show the relevant field
+            const targetField = document.getElementById(`field-${selectedType}`);
+            if (targetField) {
+                targetField.classList.remove('hidden');
+            }
+        }
+
+        function resetTransactionModal() {
+            transactionForm.reset();
+            document.getElementById('transaction_id').value = '';
+            modalTitle.textContent = 'NEW TRANSACTION';
+            typeSelect.value = 'I'; // Default to Income
+            updateDynamicField('I');
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        }
+
+        // EVENT LISTENERS
+
+        // New Transaction Button -> Open Create Modal
+        newTransactionBtn.addEventListener('click', () => {
+            resetTransactionModal();
+            openModal(transactionModal);
+        });
+
+        // Type Dropdown Change -> Update Dynamic Field
+        typeSelect.addEventListener('change', (e) => {
+            updateDynamicField(e.target.value);
+        });
+
+        // Delete Buttons -> Open Delete Modal (Use named handler)
+        document.querySelectorAll('.delete-transaction-btn').forEach(button => {
+            button.addEventListener('click', handleDeleteClick);
+        });
+
+        // Edit Buttons -> Open Edit Modal (Use named handler)
+        document.querySelectorAll('.edit-transaction-btn').forEach(button => {
+            button.addEventListener('click', handleEditClick);
+        });
+
+        // Cancel/Backdrop Clicks -> Close Modals
+        document.getElementById('cancel-transaction-modal').addEventListener('click', closeAllModals);
+        document.getElementById('cancel-delete-modal').addEventListener('click', closeAllModals);
+        backdrop.addEventListener('click', closeAllModals);
+
+        // Initialize dynamic field on page load
+        updateDynamicField(typeSelect.value);
+    </script>
+</body>
+</html>
