@@ -27,8 +27,10 @@ class Transaction(models.Model):
 
 
 class Transfer(Transaction):
-    receiverId = models.ForeignKey(Account, on_delete=models.RESTRICT)
-
+    receiverId = models.CharField(max_length=64, null=False)
+    # receiverId = models.ForeignKey(Account, on_delete=models.RESTRICT)
+#   Removed FK because this is only a tracker app
+#   Different users cannot interact
 
 class Category(models.Model):
     categoryId = models.AutoField(primary_key=True)
