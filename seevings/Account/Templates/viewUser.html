@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View User Details</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="flex flex-col min-h-screen">
+
+        <header class="bg-white border-b border-gray-200">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                        </div>
+                    <span class="text-2xl font-bold text-gray-800">Account</span>
+                </div>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Profile Picture" class="w-full h-full object-cover">
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+
+            <div class="mb-8 max-w-xl mx-auto">
+                <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                        <path fill-rule="evenodd" d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z" clip-rule="evenodd" />
+                    </svg>
+                    Back to All Users
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">User Details</h1>
+            </div>
+
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-gray-200">
+
+                <div class="space-y-5">
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" value="john.s@example.com"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-md shadow-sm bg-gray-100 sm:text-sm text-gray-600"
+                               readonly>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                            <input type="text" id="first_name" name="first_name" value="John"
+                                   class="user-field mt-1 block w-full px-4 py-2 border border-gray-200 rounded-md shadow-sm bg-gray-100 sm:text-sm text-gray-600"
+                                   readonly>
+                        </div>
+
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" value="Santillan"
+                                   class="user-field mt-1 block w-full px-4 py-2 border border-gray-200 rounded-md shadow-sm bg-gray-100 sm:text-sm text-gray-600"
+                                   readonly>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="birthdate" class="block text-sm font-medium text-gray-700 mb-1">
+                            Birthdate
+                        </label>
+                        <input type="text" id="birthdate" name="birthdate"
+                               value="May 10, 1998"
+                               data-text-value="May 10, 1998"
+                               data-date-value="1998-05-10"
+                               class="user-field mt-1 block w-full px-4 py-2 border border-gray-200 rounded-md shadow-sm bg-gray-100 sm:text-sm text-gray-600"
+                               readonly>
+                    </div>
+
+                    <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 mt-6">
+                        <button type="button"
+                                class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Back
+                        </button>
+                        <button type="button" id="edit-save-btn"
+                                class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Edit User
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="border-t border-gray-200 mt-auto bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 Account. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-900">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editSaveBtn = document.getElementById('edit-save-btn');
+            const editableFields = document.querySelectorAll('.user-field');
+            const birthdateField = document.getElementById('birthdate');
+
+            let isEditing = false;
+
+            const readOnlyClasses = ['bg-gray-100', 'border-gray-200', 'text-gray-600'];
+            const editableClasses = ['bg-white', 'border-gray-300', 'text-gray-800'];
+
+            editSaveBtn.addEventListener('click', () => {
+                // Toggle editing state
+                isEditing = !isEditing;
+
+                // Update button text
+                editSaveBtn.textContent = isEditing ? 'Save Changes' : 'Edit User';
+
+                // Toggle common fields
+                editableFields.forEach(field => {
+                    field.readOnly = !isEditing;
+
+                    if (isEditing) {
+                        field.classList.remove(...readOnlyClasses);
+                        field.classList.add(...editableClasses);
+                    } else {
+                        field.classList.remove(...editableClasses);
+                        field.classList.add(...readOnlyClasses);
+                    }
+                });
+
+                // Handle the special birthdate field
+                if (isEditing) {
+                    // Change to date input and set value from data attribute
+                    birthdateField.type = 'date';
+                    birthdateField.value = birthdateField.dataset.dateValue;
+                } else {
+                    // When "saving", get the new date, update data attributes, and format for display
+                    const newDateValue = birthdateField.value; // e.g., "1998-05-10"
+
+                    // Store the new raw date value
+                    birthdateField.dataset.dateValue = newDateValue;
+
+                    // Format for display (e.g., "May 10, 1998")
+                    // Adding 'T00:00:00' ensures the date isn't affected by timezone
+                    const dateObj = new Date(newDateValue + 'T00:00:00');
+                    const formattedDate = dateObj.toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+
+                    // Change back to text input and set formatted value
+                    birthdateField.type = 'text';
+                    birthdateField.value = formattedDate;
+                    birthdateField.dataset.textValue = formattedDate;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

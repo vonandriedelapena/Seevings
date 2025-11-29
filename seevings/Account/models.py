@@ -13,6 +13,6 @@ class Account(models.Model):
     accountId = models.AutoField(primary_key=True)
     username = models.CharField(max_length=120, null=False)
     balance = models.FloatField(default=0, null=False)
-    createdAt = models.CharField(max_length=120, null=False)
+    createdAt = models.DateTimeField(max_length=120, null=False)
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
 
