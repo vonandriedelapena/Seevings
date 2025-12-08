@@ -10,7 +10,7 @@ class Transaction(models.Model):
     timestamp = models.DateTimeField(null=False)
     notes = models.CharField(max_length=120, null=False)
     type_trans = (('T', 'Transfer'), ('E', 'Expense'), ('I', 'Income'), ('S', 'Saving'))
-    type = models.CharField(max_length=1, choices=type_trans, default='E')
+    type = models.CharField(max_length=1, choices=type_trans, default='I')
 
     def __str__(self):
         return f"{self.get_type_display()}: ${self.amount} ({self.notes} at {self.timestamp})"
@@ -28,7 +28,6 @@ class Transaction(models.Model):
 
 class Transfer(Transaction):
     receiverId = models.CharField(max_length=64, null=False)
-    # receiverId = models.ForeignKey(Account, on_delete=models.RESTRICT)
 #   Removed FK because this is only a tracker app
 #   Different users cannot interact
 
