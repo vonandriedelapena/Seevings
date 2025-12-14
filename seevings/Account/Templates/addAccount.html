@@ -14,28 +14,7 @@
 
     <div class="flex flex-col min-h-screen">
 
-        <header class="bg-white border-b border-gray-200">
-            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                <div class="flex items-center gap-4">
-                    <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-900 font-medium">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                            <path d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.5h-1.5a.75.75 0 0 0 0 1.5h1.5v1.5a.75.75 0 0 0 1.5 0v-1.5h1.5a.75.75 0 0 0 0-1.5h-1.5v-8.5Z" />
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm0 1.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Accounts</span>
-                    </a>
-                    <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 font-medium">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.5 5.5 0 0 0-5.5 5.5A.75.75 0 0 0 5.25 18h9.5a.75.75 0 0 0 .75-.75A5.5 5.5 0 0 0 10 12Z" clip-rule="evenodd" />
-                        </svg>
-                        <span>Profile</span>
-                    </a>
-                </div>
-                <div class="w-10 h-10 rounded-full overflow-hidden">
-                    <img src="https://i.pravatar.cc/100?img=12" alt="Profile Picture" class="w-full h-full object-cover">
-                </div>
-            </nav>
-        </header>
+        {% include "includes/header.html" with active_tab='accounts' %}
 
         <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
 
